@@ -1,0 +1,76 @@
+name: "MQTT-STATUS-PRINTER"
+manufacturer: "MLS"
+model: "MQTT-DEVICE-STATUS-PRINTER"
+description: "Test device profile"
+labels:
+  - "mqtt"
+
+deviceResources:
+  -
+    name: jsonSTATUS
+    description: "legge json STATUS"
+    properties:
+      value:
+        { type: "string", size: "0", readWrite: "R", defaulValue: "0.00"  }
+      units:
+        { type: "String", readWrite: "R", defaultValue: "" }
+
+deviceCommands:
+  -
+    name: leggidatiSTATUS
+    get:
+    - { index: "1", operation: "get", object: "jsonSTATUS", parameter: "jsonSTATUS" }
+ 
+
+coreCommands:
+  -
+    name: leggidatiSTATUS
+    get:
+      path: "/api/v1/device/{deviceId}/leggidatiSTATUS"
+      responses:
+      -
+        code: "200"
+        description: "ottiene il JSON STATUS"
+        expectedValues: ["jsonSTATUS"]
+      -
+        code: "503"
+        description: "service unavailable"
+        expectedValues: []
+ 
+  #  name: testping
+  #  get:
+  #    path: "/api/v1/device/{deviceId}/testping"
+  #    responses:
+  #    -
+  #      code: "200"
+  #      description: "ping the device"
+  #      expectedValues: ["ping"]
+  #    -
+  #      code: "503"
+  #      description: "service unavailable"
+  #      expectedValues: []
+  #-
+  #  name: testmessage
+  #  get:
+  #    path: "/api/v1/device/{deviceId}/testmessage"
+  #    responses:
+  #    -
+  #      code: "200"
+  #      description: "get the message"
+  #      expectedValues: ["message"]
+  #    -
+  #      code: "503"
+  #      description: "service unavailable"
+  #      expectedValues: []
+  #  put:
+  #    path: "/api/v1/device/{deviceId}/testmessage"
+  #    parameterNames: ["message"]
+  #    responses:
+  #    -
+  #      code: "204"
+  #      description: "set the message."
+  #      expectedValues: []
+  #    -
+  #      code: "503"
+  #      description: "service unavailable"
+  #      expectedValues: []
